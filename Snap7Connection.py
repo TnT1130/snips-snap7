@@ -19,7 +19,7 @@ class Snap7Connection():
       pos = index % 8
       tmpdata = self.__client.db_read(db, offset, 1)[0]
       tmpret = (tmpdata & 1<<pos) >> pos
-      lg.debug("Read DB: {}, Byte: {}, Bit{}, Data: {}".format(db, offset, pos, tmpret))
+      lg.debug("Read DB: {}, Byte: {}, Bit: {}, Data: {}".format(db, offset, pos, tmpret))
       return tmpret
 
     def setBit(self, db, index):

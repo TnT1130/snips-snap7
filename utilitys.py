@@ -17,7 +17,7 @@ def catchErrors(fnc):
     hermes = list(args)[0]
     intent_message = list(args)[1]
     try:
-      lg.debug("call function \"{}\" with args: {}".format(fnc.__name__, str(args)))
+      lg.debug("call function \"{}\" with {} args".format(fnc.__name__, str(len(args))))
       fnc(*args, **kw)
     except KeyError as err:
       lg.error("fnct: {}, KeyError: {}".format(fnc.__name__, str(err)))
