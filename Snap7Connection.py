@@ -60,9 +60,9 @@ class Snap7Connection():
       if not self.__client:
         lg.info("connect to SPS IP: {}, PORT: {}, RACK: {}, SLOT: {}".format(
           self.__assistantConfig["spsip"],
+          self.__assistantConfig.get("spsport", 102),
           self.__assistantConfig.get("spsrack", 0),
-          self.__assistantConfig.get("spsslot", 2),
-          self.__assistantConfig.get("spsport", 102)
+          self.__assistantConfig.get("spsslot", 2)
         ))
         self.__client = snap7.client.Client()
         self.__client.connect(self.__assistantConfig["spsip"], 
