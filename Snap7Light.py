@@ -32,9 +32,11 @@ class Snap7Light():
     return tmp
 
   def turnOn(self, room, pos):
-    lg.info("room: {}, type: {}, Action: TurnOn".format(room, pos))
-    self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
+    if self.getStatus(room, pos) == 0:
+      lg.info("room: {}, type: {}, Action: TurnOn".format(room, pos))
+      self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
 
   def turnOff(self, room, pos):
-    lg.info("room: {}, type: {}, Action: TurnOff".format(room, pos))
-    self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, pos))
+    if self.getStatus(room, pos) == 1:
+      lg.info("room: {}, type: {}, Action: TurnOff".format(room, pos))
+      self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
