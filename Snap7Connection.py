@@ -58,24 +58,27 @@ class Snap7Connection():
 
     def connect(self):  
       if not self.__client:
-        lg.info("connect to SPS IP: {}, PORT: {}, RACK: {}, SLOT: {}".format(
-          self.__assistantConfig["spsip"],
-          self.__assistantConfig.get("spsport", 102),
-          self.__assistantConfig.get("spsrack", 0),
-          self.__assistantConfig.get("spsslot", 2)
+        lg.info("connect to SPS {} password IP: {}, PORT: {}, RACK: {}, SLOT: {}".format(
+          self.__assistantConfig.get("global")["spsip"],
+          self.__assistantConfig.get("global").get("spsport", 102),
+          self.__assistantConfig.get("global").get("spsrack", 0),
+          self.__assistantConfig.get("global").get("spsslot", 2),
+          "with" if self.__assistantConfig.get("secret").get("spsslot", "") != "" else "without"
         ))
         self.__client = snap7.client.Client()
-        self.__client.connect(self.__assistantConfig["spsip"], 
-                              int(self.__assistantConfig.get("spsrack", 0)), 
-                              int(self.__assistantConfig.get("spsslot", 2)), 
-                              int(self.__assistantConfig.get("spsport", 102)))
+        if self.__assistantConfig.get("secret").get("spsslot", "") != "":
+          self.__client.set_session_password(self.__assistantConfig.get("secret").get("spsslot", ""))
         self.__client.set_connection_type(2)
+        self.__client.connect(self.__assistantConfig.get("global")["spsip"], 
+                              int(self.__assistantConfig.get("global").get("spsrack", 0)), 
+                              int(self.__assistantConfig.get("global").get("spsslot", 2)), 
+                              int(self.__assistantConfig.get("global").get("spsport", 102)))
       self.__restartTimer()
     
     def __restartTimer(self):
       if self.__timer:
         self.__timer.cancel()
-      self.__timer = threading.Timer(60.0 * int(self.__assistantConfig.get("spsconnectionkeepalive", 1)), self.closeConnection)
+      self.__timer = threading.Timer(60.0 * int(self.__assistantConfig.get("global").get("spsconnectionkeepalive", 1)), self.closeConnection)
       self.__timer.start()
 
     def closeConnection(self):

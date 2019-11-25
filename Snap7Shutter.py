@@ -3,7 +3,7 @@ from utilitys import lg
 
 class Snap7Shutter():
   def __init__(self, config):
-    self.__client = s7con(config.get("global"))
+    self.__client = s7con(config)
     self.__rooms = config.get("secret")["rooms"].lower().split(",")
     self.__lightPos = "alle,fenster,tuer".lower().split(",")
     self.__readDB = int(config.get("global")["shutterread"])

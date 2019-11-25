@@ -3,7 +3,7 @@ from utilitys import lg
 
 class Snap7Light():
   def __init__(self, config):
-    self.__client = s7con(config.get("global"))
+    self.__client = s7con(config)
     self.__rooms = config.get("secret")["rooms"].lower().split(",")
     self.__lightPos = "alle,Decke,indirekt,Bett1,Bett2,Dusche,Links,Rechts".lower().split(",")
     self.__readDB = int(config.get("global")["lightread"])
