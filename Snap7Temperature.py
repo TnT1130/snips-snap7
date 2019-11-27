@@ -25,7 +25,7 @@ class Snap7Temperature():
     if diffPos:
       if diffPos not in self.__temperatureDiffPos:
         ValueError("unbekante Temperaturveränderung.")
-      offset += self.__temperatureDiffPos.index(pos.lower())
+      offset += self.__temperatureDiffPos.index(diffPos.lower())
     lg.debug("room: {}, type: {}, ReadOffset: {}".format(room, pos, offset))
     return offset
 
@@ -38,12 +38,12 @@ class Snap7Temperature():
     if diffPos:
       if diffPos not in self.__temperatureDiffPos:
         ValueError("unbekante Temperaturveränderung.")
-      offset += self.__temperatureDiffPos.index(pos.lower())
+      offset += self.__temperatureDiffPos.index(diffPos.lower())
     lg.debug("room: {}, type: {}, WriteOffset: {}".format(room, pos, offset))
     return offset
 
   def getStatus(self, room, pos):
-    tmp = self.__client.readBit(self.__readDB, self.__getReadOffset(room, pos))
+    tmp = self.__client.readInt(self.__readDB, self.__getReadOffset(room, pos))
     lg.info("room: {}, type: {}, Status: {}".format(room, pos, tmp))
     return tmp
 
