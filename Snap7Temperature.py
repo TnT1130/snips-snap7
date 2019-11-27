@@ -1,7 +1,7 @@
 from Snap7Connection import Snap7Connection as s7con
 from utilitys import lg
 
-class Snap7Light():
+class Snap7Temperature():
   def __init__(self, config):
     self.__client = s7con(config)
     self.__rooms = config.get("secret")["rooms"].lower().split(",")
