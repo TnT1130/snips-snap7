@@ -11,26 +11,23 @@ class Snap7Shutter():
     self.__readOffset = int(config.get("global")["ShutterReadOffset".lower()]) * 8   
     self.__writeOffset = int(config.get("global")["ShutterWriteOffset".lower()]) * 8 
     if    self.__readOffset < len(self.__lightPos) * 8 * 2 \
-       or self.__writeOffset < len(self.__lightPos) * 8 * 4:
-       pass #todo 
-       #raise ValueError("Offset must be bigger than number lightpositions")
+       or self.__writeOffset < len(self.__lightPos) * 8 * 4: 
+       raise ValueError("Offset must be bigger than number lightpositions")
 
   def __getReadOffset(self, room, pos):
     offset = self.__rooms.index(room.lower()) * self.__readOffset
-    offset += self.__lightPos.index(pos.lower()) #tofo * 8 * 2
+    offset += self.__lightPos.index(pos.lower()) * 8 * 2
     lg.debug("room: {}, type: {}, ReadOffset: {}".format(room, pos, offset))
     return offset
 
   def __getWriteOffset(self, room, pos):
     offset = self.__rooms.index(room.lower()) * self.__writeOffset
-    offset += self.__lightPos.index(pos.lower()) #todo* 8 * 4
+    offset += self.__lightPos.index(pos.lower()) * 8 * 4
     lg.debug("room: {}, type: {}, WriteOffset: {}".format(room, pos, offset))
     return offset
 
   def getStatus(self, room, pos):
-    #todo
-    #tmp = self.__client.readBit(self.__readDB, self.__getReadOffset(room, pos))
-    tmp = 1
+    tmp = self.__client.readInt(self.__readDB, self.__getReadOffset(room, pos)+8)
     lg.info("room: {}, type: {}, Status: {}".format(room, pos, tmp))
     return tmp
 

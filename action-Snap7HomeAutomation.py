@@ -63,10 +63,17 @@ def getObjectStatus(hermes, intent_message):
       hermes.publish_end_session(intent_message.session_id, "Das Licht im {} ist ausgeschalten".format(location))
   elif device.upper() == "Rollo".upper():
     deviceType = deviceType if deviceType != "default" else "fenster"
-    if shutter.getStatus(location, deviceType) == 1:
-      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist geöffnet.".format(location))
-    else:
-      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist geschlossen.".format(location))
+    tmp = shutter.getStatus(location, deviceType)
+    if tmp == 0:
+      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist komplett geöffnet.".format(location))
+    elif tmp < 33:
+      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist leicht geschlossen.".format(location))
+    elif tmp < 66:
+      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist zur hälfte geschlossen.".format(location))
+    elif tmp < 100:
+      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist weit geschlossen.".format(location))
+    elif tmp == 100:
+      hermes.publish_end_session(intent_message.session_id, "Rolladen im {} ist komplett geschlossen.".format(location))
   else:
     hermes.publish_end_session(intent_message.session_id, "Gerätetyp {} wird aktuell nicht unterstützt".format(device))
 
