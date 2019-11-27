@@ -1,5 +1,11 @@
 #! /usr/bin/env bash
 
+# Copy config.ini.default if it exists and config.ini doesn't exist.
+if [ -e config.ini.default ] && [ ! -e config.ini ]; then
+    cp config.ini.default config.ini
+    chmod a+w config.ini
+fi
+
 # Create or activate virtual environment
 VENV=venv
 if [ ! -d "$VENV" ]; then
