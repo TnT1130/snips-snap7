@@ -24,7 +24,10 @@ def catchErrors(fnc):
       pass #todo
     except ValueError as err:
       lg.error("fnct: {}, ValueError: {}".format(fnc.__name__, str(err)))
-      hermes.publish_end_session(intent_message.session_id, "raum nicht gefunden")  
+      if str(err) != "":
+        hermes.publish_end_session(intent_message.session_id, str(err))  
+      else:
+        hermes.publish_end_session(intent_message.session_id, "raum nicht gefunden")  
     except Snap7Exception as err:
       lg.error("fnct: {}, Snap7Exception: {}".format(fnc.__name__, str(err)))
       hermes.publish_end_session(intent_message.session_id, "fehler bei der SPS-kommunikation")
