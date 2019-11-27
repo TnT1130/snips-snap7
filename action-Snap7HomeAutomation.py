@@ -3,6 +3,7 @@
 import logging
 from Snap7Light import Snap7Light
 from Snap7Shutter import Snap7Shutter
+from Snap7Temperature import Snap7Temperature
 from assistant import Assistant
 from utilitys import catchErrors, getSlotValue, lg, configureLogger
 #hermes: 'publish_continue_session', 'publish_end_session', 'publish_start_session_action', 'publish_start_session_notification',
@@ -12,6 +13,7 @@ from utilitys import catchErrors, getSlotValue, lg, configureLogger
 assist = Assistant()
 lights = Snap7Light(assist.get_config())
 shutter = Snap7Shutter(assist.get_config())
+temp = Snap7Temperature(assist.get_config())
 
 
 # ======================================================================================================================
@@ -77,6 +79,25 @@ def getObjectStatus(hermes, intent_message):
   else:
     hermes.publish_end_session(intent_message.session_id, "Gerätetyp {} wird aktuell nicht unterstützt".format(device))
 
+@catchErrors
+def getTemperature(hermes, intent_message):
+  location = getSlotValue(intent_message.slots, "location", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  tempType = getSlotValue(intent_message.slots, "tempType", "Ist")
+  hermes.publish_end_session(intent_message.session_id, "Die Temperatur im {} beträgt {}.".format(location, temp.getStatus(location, tempType)))
+
+@catchErrors
+def getIncrease(hermes, intent_message):
+  location = getSlotValue(intent_message.slots, "location", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  tempChangeType = "Plus_" + getSlotValue(intent_message.slots, "tempChangeType", "1_00")
+  temp.changeTemp(location, tempChangeType)
+  hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(location))
+
+@catchErrors
+def getDecrease(hermes, intent_message):
+  location = getSlotValue(intent_message.slots, "location", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  tempChangeType = "Minus_" + getSlotValue(intent_message.slots, "tempChangeType", "1_00")
+  temp.changeTemp(location, tempChangeType)
+  hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(location))
 
 
 if __name__ == "__main__":
@@ -86,4 +107,5 @@ if __name__ == "__main__":
       h.subscribe_intent("abcderff:ActivateObject", activateObject)
       h.subscribe_intent("abcderff:DeactivateObject", deactivateObject)
       h.subscribe_intent("abcderff:GetObjectStatus", getObjectStatus)
+      h.subscribe_intent("abcderff:GetTemperature", getTemperature)
       h.loop_forever()
