@@ -10,8 +10,8 @@ class Snap7Light():
     self.__writeDB = int(config.get("global")["lightwrite"])
     self.__readOffset = int(config.get("global")["LightReadOffset".lower()]) * 8   
     self.__writeOffset = int(config.get("global")["LightWriteOffset".lower()]) * 8 
-    if    self.__readOffset < len(self.__lightPos) \
-       or self.__writeOffset < len(self.__lightPos):
+    if    self.__readOffset * 8 < len(self.__lightPos) \
+       or self.__writeOffset * 8 < len(self.__lightPos):
        raise ValueError("Offset must be bigger than number lightpositions")
 
   def __getReadOffset(self, room, pos):
