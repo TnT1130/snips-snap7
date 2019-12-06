@@ -12,9 +12,9 @@ class Snap7Temperature():
     self.__readOffset = int(config.get("global")["TemperatureReadOffset".lower()]) * 8   
     self.__writeOffset = int(config.get("global")["TemperatureWriteOffset".lower()]) * 8 
                                                         #bits  intlen  
-    if    self.__readOffset < len(self.__temperaturePos) * 8   * 2     + len(self.__temperatureDiffPos) \
-       or self.__writeOffset < len(self.__temperatureDiffPos): 
-       raise ValueError("Offset must be bigger than number Temperaturepositions")
+    if    self.__readOffset * 8 < len(self.__temperaturePos) * 8   * 2     + len(self.__temperatureDiffPos) \
+       or self.__writeOffset * 8 < len(self.__temperatureDiffPos): 
+       raise ValueError("Offset must be bigger than number temperaturepositions")
 
   def __getReadOffset(self, room, pos = None, diffPos = None):
     offset = self.__rooms.index(room.lower()) * self.__readOffset
