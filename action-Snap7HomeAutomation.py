@@ -102,7 +102,7 @@ def getDecrease(hermes, intent_message):
 @catchErrors
 def setRollerBlinds(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
-  WindowType = getSlotValue(intent_message.slots, "WindowType", "")
+  WindowType = getSlotValue(intent_message.slots, "WindowType", "Fenster")
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
   if MovementDirection.upper() == "Ab".upper():
     shutter.close(ObjectLocation, WindowType)
@@ -116,7 +116,7 @@ def setRollerBlinds(hermes, intent_message):
 @catchErrors
 def getRollerBlinds(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
-  WindowType = getSlotValue(intent_message.slots, "WindowType", "")
+  WindowType = getSlotValue(intent_message.slots, "WindowType", "Fenster")
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
   tmp = shutter.getStatus(ObjectLocation, WindowType)
   if tmp == 0:
