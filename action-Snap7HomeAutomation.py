@@ -108,4 +108,6 @@ if __name__ == "__main__":
       h.subscribe_intent("mdl:DeactivateObjectCopy", deactivateObject)
       h.subscribe_intent("mdl:GetObjectStatus", getObjectStatus)
       h.subscribe_intent("mdl:GetTemperature", getTemperature)
+      h.subscribe_intent("mdl:SetRollerBlinds", setRollerBlinds)
+      h.subscribe_intent("mdl:GetRollerBlinds", getRollerBlinds)
       h.loop_forever()
