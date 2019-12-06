@@ -99,6 +99,37 @@ def getDecrease(hermes, intent_message):
   temp.changeTemp(location, tempChangeType)
   hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(location))
 
+@catchErrors
+def setRollerBlinds(hermes, intent_message):
+  ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  WindowType = getSlotValue(intent_message.slots, "WindowType", "")
+  MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
+  if MovementDirection.upper() == "Ab".upper():
+    shutter.close(ObjectLocation, WindowType)
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geschlossen.".format(ObjectLocation))
+  elif device.upper() == "Auf".upper():
+    shutter.open(ObjectLocation, WindowType)
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geöffnet.".format(ObjectLocation))
+  else:
+    hermes.publish_end_session(intent_message.session_id, "Bewegung {} wird aktuell nicht unterstützt".format(MovementDirection))
+
+@catchErrors
+def getRollerBlinds(hermes, intent_message):
+  ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  WindowType = getSlotValue(intent_message.slots, "WindowType", "")
+  MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
+  tmp = shutter.getStatus(ObjectLocation, WindowType)
+  if tmp == 0:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist komplett geöffnet.".format(location))
+  elif tmp < 33:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist leicht geschlossen.".format(location))
+  elif tmp < 66:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist zur hälfte geschlossen.".format(location))
+  elif tmp < 100:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist weit geschlossen.".format(location))
+  elif tmp == 100:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist komplett geschlossen.".format(location))
+  
 
 if __name__ == "__main__":
       configureLogger()
