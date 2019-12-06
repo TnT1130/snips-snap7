@@ -10,9 +10,9 @@ class Snap7Shutter():
     self.__writeDB = int(config.get("global")["shutterwrite"])
     self.__readOffset = int(config.get("global")["ShutterReadOffset".lower()]) * 8   
     self.__writeOffset = int(config.get("global")["ShutterWriteOffset".lower()]) * 8 
-    if    self.__readOffset < len(self.__lightPos) * 8 * 2 \
-       or self.__writeOffset < len(self.__lightPos) * 8 * 4: 
-       raise ValueError("Offset must be bigger than number lightpositions")
+    if    self.__readOffset * 8 < len(self.__lightPos) * 8 * 2 \
+       or self.__writeOffset * 8 < len(self.__lightPos) * 8 * 4: 
+       raise ValueError("Offset must be bigger than number shutterpositions")
 
   def __getReadOffset(self, room, pos):
     offset = self.__rooms.index(room.lower()) * self.__readOffset
