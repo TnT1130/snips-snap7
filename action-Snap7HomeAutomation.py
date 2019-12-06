@@ -107,7 +107,7 @@ def setRollerBlinds(hermes, intent_message):
   if MovementDirection.upper() == "Ab".upper():
     shutter.close(ObjectLocation, WindowType)
     hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geschlossen.".format(ObjectLocation))
-  elif device.upper() == "Auf".upper():
+  elif MovementDirection.upper() == "Auf".upper():
     shutter.open(ObjectLocation, WindowType)
     hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geöffnet.".format(ObjectLocation))
   else:
