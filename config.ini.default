@@ -1,16 +1,16 @@
 [global]
 LightRead=901
-LightReadOffset=16
+LightReadOffset=2
 LightWrite=951
-LightWriteOffset=16
+LightWriteOffset=2
 ShutterRead=902
-ShutterReadOffset=32
+ShutterReadOffset=4
 ShutterWrite=952
-ShutterWriteOffset=64
+ShutterWriteOffset=8
 TemperatureRead=903
-TemperatureReadOffset=128
+TemperatureReadOffset=16
 TemperatureWrite=953
-TemperatureWriteOffset=16
+TemperatureWriteOffset=2
 
 SPSIP=192.168.2.199
 SPSRack=0
