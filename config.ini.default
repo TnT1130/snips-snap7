@@ -1,18 +1,18 @@
 [global]
 LightRead=901
-LightReadOffset=1
+LightReadOffset=16
 LightWrite=951
-LightWriteOffset=1 
-ShutterRead=901
-ShutterReadOffset=1
-ShutterWrite=951
-ShutterWriteOffset=1 
-TemperatureRead=901
+LightWriteOffset=16
+ShutterRead=902
+ShutterReadOffset=32
+ShutterWrite=952
+ShutterWriteOffset=64
+TemperatureRead=903
 TemperatureReadOffset=128
-TemperatureWrite=951
+TemperatureWrite=953
 TemperatureWriteOffset=16
 
-SPSIP=192.168.2.61
+SPSIP=192.168.2.199
 SPSRack=0
 SPSSlot=2
 SPSConnectionKeepAliveTime=1
@@ -20,5 +20,5 @@ SPSConnectionKeepAliveTime=1
 
 [secret]
 language = DE
-Rooms=Wohnzimmer,Schlafzimmer,Badezimmer
+Rooms=Alle,Schlafzimmer,Kinderzimmer,Küche,Wohnzimmer,Büro,Bad,Gang,Balkon
 Snap7Password=
