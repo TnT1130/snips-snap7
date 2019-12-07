@@ -111,7 +111,7 @@ def setRollerBlinds(hermes, intent_message):
     shutter.open(ObjectLocation, WindowType)
     hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geöffnet.".format(ObjectLocation))
   else:
-    hermes.publish_end_session(intent_message.session_id, "Bewegung {} wird aktuell nicht unterstützt".format(MovementDirection))
+    hermes.publish_end_session(intent_message.session_id, "Zefix, steh doch selbst auf!")
 
 @catchErrors
 def getRollerBlinds(hermes, intent_message):
