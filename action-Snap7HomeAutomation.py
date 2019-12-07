@@ -83,9 +83,7 @@ def getObjectStatus(hermes, intent_message):
 def getTemperature(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   tempType = getSlotValue(intent_message.slots, "tempType", "Ist")
-  tmp = temp.getStatus(ObjectLocation, tempType))
-  tmp = tmp / 100.0
-  hermes.publish_end_session(intent_message.session_id, "Die Temperatur im {} beträgt {} Grad.".format(ObjectLocation, tmp))
+  hermes.publish_end_session(intent_message.session_id, "Die Temperatur im {} beträgt {}.".format(ObjectLocation, temp.getStatus(ObjectLocation, tempType)))
 
 @catchErrors
 def getIncrease(hermes, intent_message):
