@@ -81,23 +81,23 @@ def getObjectStatus(hermes, intent_message):
 
 @catchErrors
 def getTemperature(hermes, intent_message):
-  location = getSlotValue(intent_message.slots, "location", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   tempType = getSlotValue(intent_message.slots, "tempType", "Ist")
-  hermes.publish_end_session(intent_message.session_id, "Die Temperatur im {} beträgt {}.".format(location, temp.getStatus(location, tempType)))
+  hermes.publish_end_session(intent_message.session_id, "Die Temperatur im {} beträgt {}.".format(ObjectLocation, temp.getStatus(ObjectLocation, tempType)))
 
 @catchErrors
 def getIncrease(hermes, intent_message):
-  location = getSlotValue(intent_message.slots, "location", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   tempChangeType = "Plus_" + getSlotValue(intent_message.slots, "tempChangeType", "1_00")
-  temp.changeTemp(location, tempChangeType)
-  hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(location))
+  temp.changeTemp(ObjectLocation, tempChangeType)
+  hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(ObjectLocation))
 
 @catchErrors
 def getDecrease(hermes, intent_message):
-  location = getSlotValue(intent_message.slots, "location", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   tempChangeType = "Minus_" + getSlotValue(intent_message.slots, "tempChangeType", "1_00")
-  temp.changeTemp(location, tempChangeType)
-  hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(location))
+  temp.changeTemp(ObjectLocation, tempChangeType)
+  hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(ObjectLocation))
 
 @catchErrors
 def setRollerBlinds(hermes, intent_message):
