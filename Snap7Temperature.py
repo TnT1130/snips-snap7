@@ -45,6 +45,7 @@ class Snap7Temperature():
   def getStatus(self, room, pos):
     tmp = self.__client.readInt(self.__readDB, self.__getReadOffset(room, pos))
     lg.info("room: {}, type: {}, Status: {}".format(room, pos, tmp))
+    tmp = tmp / 100
     return tmp
 
   def changeTemp(self, room, difId):
