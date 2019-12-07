@@ -100,6 +100,16 @@ def getDecrease(hermes, intent_message):
   hermes.publish_end_session(intent_message.session_id, "Temeperatur im {} wird verändert.".format(ObjectLocation))
 
 @catchErrors
+def setTemperature(hermes, intent_message):
+  ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
+  TempDirection = getSlotValue(intent_message.slots, "TempDirection", "Plus")
+  if TempDirection.upper() == "Licht".upper():
+    tempChangeType = "Plus_" + getSlotValue(intent_message.slots, "TempType", "0_25")
+  else:
+    tempChangeType = "Minus_" + getSlotValue(intent_message.slots, "TempType", "0_25")
+  hermes.publish_end_session(intent_message.session_id, "Temperatur im {} wird verändert.".format(ObjectLocation))
+
+@catchErrors
 def setRollerBlinds(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   WindowType = getSlotValue(intent_message.slots, "WindowType", "alle")
@@ -141,4 +151,5 @@ if __name__ == "__main__":
       h.subscribe_intent("mdl:GetTemperature", getTemperature)
       h.subscribe_intent("mdl:SetRollerBlinds", setRollerBlinds)
       h.subscribe_intent("mdl:GetRollerBlinds", getRollerBlinds)
+      h.subscribe_intent("mdl:SetTemperature", setTemperature)
       h.loop_forever()
