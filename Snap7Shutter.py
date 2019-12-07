@@ -16,13 +16,13 @@ class Snap7Shutter():
 
   def __getReadOffset(self, room, pos):
     offset = self.__rooms.index(room.lower()) * self.__readOffset
-    offset += self.__lightPos.index(pos.lower()) * 8 * 2
+    offset += self.__lightPos.index(pos.lower()) * 8
     lg.debug("room: {}, type: {}, ReadOffset: {}".format(room, pos, offset))
     return offset
 
   def __getWriteOffset(self, room, pos):
     offset = self.__rooms.index(room.lower()) * self.__writeOffset
-    offset += self.__lightPos.index(pos.lower()) * 8 * 4
+    offset += self.__lightPos.index(pos.lower()) * 8 * 2
     lg.debug("room: {}, type: {}, WriteOffset: {}".format(room, pos, offset))
     return offset
 
