@@ -99,9 +99,11 @@ def setTemperature(hermes, intent_message):
   TempDirection = getSlotValue(intent_message.slots, "TempDirection", "Plus")
   if TempDirection.upper() == "Plus".upper():
     tempChangeType = "Plus_" + getSlotValue(intent_message.slots, "TempType", "0_25")
+    temp.changeTemp(ObjectLocation, tempChangeType)
     hermes.publish_end_session(intent_message.session_id, "Temperatur im {} wird erhöht.".format(ObjectLocation))
   elif TempDirection.upper() == "Minus".upper():
     tempChangeType = "Minus_" + getSlotValue(intent_message.slots, "TempType", "0_25")
+    temp.changeTemp(ObjectLocation, tempChangeType)
     hermes.publish_end_session(intent_message.session_id, "Temperatur im {} wird gesenkt.".format(ObjectLocation))
   else:
     hermes.publish_end_session(intent_message.session_id, "Was willst du von mir?")
