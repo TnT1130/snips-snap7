@@ -5,7 +5,7 @@ class Snap7Shutter():
   def __init__(self, config):
     self.__client = s7con(config)
     self.__rooms = config.get("secret")["rooms"].lower().split(",")
-    self.__shutterPos = "fenster,tür".lower().split(",")
+    self.__shutterPos = "alle,fenster,tür".lower().split(",")
     self.__readDB = int(config.get("global")["shutterread"])
     self.__writeDB = int(config.get("global")["shutterwrite"])
     self.__readOffset = int(config.get("global")["ShutterReadOffset".lower()]) * 8   
