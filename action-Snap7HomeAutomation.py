@@ -97,12 +97,23 @@ temp = Snap7Temperature(assist.get_config())
 def setTemperature(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   TempDirection = getSlotValue(intent_message.slots, "TempDirection", "Plus")
+  tempChangeType = getSlotValue(intent_message.slots, "TempType", "0_25")
+  if tempChangeType == 1:
+    tempChangeType = "1_00"
+  elif tempChangeType == 0.75:
+    tempChangeType = "0_75"
+  elif tempChangeType == 0.5:
+    tempChangeType = "0_50"
+  elif tempChangeType == 0.25:
+    tempChangeType = "0_25"
+  else:
+    tempChangeType = "0_25"
   if TempDirection.upper() == "Plus".upper():
-    tempChangeType = "Plus_" + getSlotValue(intent_message.slots, "TempType", "0_25")
+    tempChangeType = "Plus_" + tempChangeType
     temp.changeTemp(ObjectLocation, tempChangeType)
     hermes.publish_end_session(intent_message.session_id, "Temperatur im {} wird erhöht.".format(ObjectLocation))
   elif TempDirection.upper() == "Minus".upper():
-    tempChangeType = "Minus_" + getSlotValue(intent_message.slots, "TempType", "0_25")
+    tempChangeType = "Minus_" + tempChangeType
     temp.changeTemp(ObjectLocation, tempChangeType)
     hermes.publish_end_session(intent_message.session_id, "Temperatur im {} wird gesenkt.".format(ObjectLocation))
   else:
