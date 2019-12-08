@@ -145,7 +145,9 @@ def getRollerBlinds(hermes, intent_message):
   WindowType = getSlotValue(intent_message.slots, "WindowType", "alle")
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
   tmp = shutter.getStatus(ObjectLocation, WindowType)
-  if tmp < 5:
+  if tmp < 0:
+    hermes.publish_end_session(intent_message.session_id, "Rollo nicht gefunden")
+  elif tmp < 5:
     hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist geöffnet.".format(ObjectLocation))
   #elif tmp < 33:
   #  hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist leicht geschlossen.".format(ObjectLocation))
