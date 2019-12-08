@@ -145,16 +145,18 @@ def getRollerBlinds(hermes, intent_message):
   WindowType = getSlotValue(intent_message.slots, "WindowType", "alle")
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
   tmp = shutter.getStatus(ObjectLocation, WindowType)
-  if tmp == 0:
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist komplett geöffnet.".format(location))
-  elif tmp < 33:
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist leicht geschlossen.".format(location))
-  elif tmp < 66:
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist zur hälfte geschlossen.".format(location))
-  elif tmp < 100:
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist weit geschlossen.".format(location))
-  elif tmp == 100:
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist komplett geschlossen.".format(location))
+  if tmp < 5:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist komplett geöffnet.".format(ObjectLocation))
+  #elif tmp < 33:
+  #  hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist leicht geschlossen.".format(ObjectLocation))
+  #elif tmp < 66:
+  #  hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist zur hälfte geschlossen.".format(ObjectLocation))
+  #elif tmp < 100:
+  #  hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist weit geschlossen.".format(ObjectLocation))
+  elif tmp >= 100:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist komplett geschlossen.".format(ObjectLocation))
+  else:
+    hermes.publish_end_session(intent_message.session_id, "Rollo im {} ist zu {} Prozent geschlossen.".format(ObjectLocation, tmp))
 
 @catchErrors
 def setObject(hermes, intent_message):
