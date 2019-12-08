@@ -27,7 +27,7 @@ class Snap7Shutter():
     return offset
 
   def getStatus(self, room, pos):
-    tmp = self.__client.readInt(self.__readDB, self.__getReadOffset(room, pos)+8)
+    tmp = self.__client.readInt(self.__readDB, self.__getReadOffset(room, pos))
     lg.info("room: {}, type: {}, Status: {}".format(room, pos, tmp))
     return tmp
 
