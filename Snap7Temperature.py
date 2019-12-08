@@ -31,10 +31,6 @@ class Snap7Temperature():
 
   def __getWriteOffset(self, room, pos = None, diffPos = None):
     offset = self.__rooms.index(room.lower()) * self.__writeOffset
-    if pos:
-      if pos not in self.__temperaturePos:
-        ValueError("unbekante Temperaturart.")
-      offset += self.__temperaturePos.index(pos.lower()) * 8 * 2
     if diffPos:
       if diffPos not in self.__temperatureDiffPos:
         ValueError("unbekante Temperaturveränderung.")
@@ -49,13 +45,13 @@ class Snap7Temperature():
 
   def changeTemp(self, room, difId):
       lg.info("room: {}, Action: {}".format(room, difId))
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 0)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 1)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 2)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 3)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 4)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 5)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 6)
-      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 7)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 0)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 1)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 2)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 3)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 4)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 5)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 6)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room) + 7)
       self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, diffPos= difId))
 
