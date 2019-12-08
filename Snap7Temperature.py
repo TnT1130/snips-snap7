@@ -49,5 +49,13 @@ class Snap7Temperature():
 
   def changeTemp(self, room, difId):
       lg.info("room: {}, Action: {}".format(room, difId))
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 0)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 1)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 2)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 3)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 4)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 5)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 6)
+      self.__client.clearBit(self.__writeDB, self.__getWriteOffset(room, 7)
       self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, diffPos= difId))
 
