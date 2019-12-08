@@ -175,10 +175,9 @@ def getObject(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   ObjectType = getSlotValue(intent_message.slots, "ObjectType", intent_message.site_id if intent_message.site_id != "default" else "Decke")
   if lights.getStatus(ObjectLocation, ObjectType) == 1:
-    hermes.publish_end_session(intent_message.session_id, "Das Licht im {} ist angeschalten".format(location))
-  else:  
-    hermes.publish_end_session(intent_message.session_id, "Das Licht im {} ist ausgeschalten".format(location))
-
+    hermes.publish_end_session(intent_message.session_id, "Licht im {} ist an".format(ObjectLocation))
+  else:
+    hermes.publish_end_session(intent_message.session_id, "Licht im {} ist aus".format(ObjectLocation))
 
 if __name__ == "__main__":
       configureLogger()
