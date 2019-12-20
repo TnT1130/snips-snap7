@@ -5,7 +5,7 @@ class Snap7Light():
   def __init__(self, config):
     self.__client = s7con(config)
     self.__rooms = config.get("secret")["rooms"].lower().split(",")
-    self.__lightPos = "alle,Decke,indirekt,Bett1,Bett2,Dusche,Links,Rechts".lower().split(",")
+    self.__lightPos = "alle,Decke,indirekt,Bett1,Bett2,Dusche,Links,Rechts,Steckdose1,Steckdose2,Steckdose3,Steckdose4,Steckdose5,Steckdose6,Steckdose7,Steckdose8".lower().split(",")
     self.__readDB = int(config.get("global")["lightread"])
     self.__writeDB = int(config.get("global")["lightwrite"])
     self.__readOffset = int(config.get("global")["LightReadOffset".lower()]) * 8   
