@@ -74,8 +74,8 @@ class Snap7Connection():
                               int(self.__assistantConfig.get("global").get("spsrack", 0)), 
                               int(self.__assistantConfig.get("global").get("spsslot", 2)), 
                               int(self.__assistantConfig.get("global").get("spsport", 102)))
+      time.sleep(50.0 / 1000.0)
       self.__restartTimer()
-      time.sleep(50 / 1000)
     
     def __restartTimer(self):
       if self.__timer:
