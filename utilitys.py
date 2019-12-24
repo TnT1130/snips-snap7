@@ -27,13 +27,13 @@ def catchErrors(fnc):
       if str(err) != "":
         hermes.publish_end_session(intent_message.session_id, str(err))  
       else:
-        hermes.publish_end_session(intent_message.session_id, "raum nicht gefunden")  
+        hermes.publish_end_session(intent_message.session_id, "Raum nicht gefunden")  
     except Snap7Exception as err:
       lg.error("fnct: {}, Snap7Exception: {}".format(fnc.__name__, str(err)))
-      hermes.publish_end_session(intent_message.session_id, "fehler bei der SPS-kommunikation")
+      hermes.publish_end_session(intent_message.session_id, "Fehler bei der SPS-Kommunikation")
     except Exception as err:
       lg.error("fnct: {}, {}: {}".format(fnc.__name__, type(err), str(err)))
-      hermes.publish_end_session(intent_message.session_id, "unbekanter fehler beim verarbeiten der anfrage")
+      hermes.publish_end_session(intent_message.session_id, "Unbekanter fehler beim Verarbeiten der Anfrage")
   return f
 
 def getSlotValue(slots, key, default):
