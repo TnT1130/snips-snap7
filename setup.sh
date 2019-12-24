@@ -25,7 +25,7 @@ pip install --upgrade pip
 pip3 install -r requirements.txt
 
 #install snap7 libarys
-#./install_snap7.sh
+./install_snap7.sh
 
 # Download assistant.py
 #curl https://gitlab.com/snippets/1893789/raw --silent --output assistant.py
