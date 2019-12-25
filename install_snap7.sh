@@ -4,8 +4,8 @@
 
 
 version="snap7-full-1.4.2"
-arch="x86_64" #linux
-#arch="arm_v7" #pi
+#arch="x86_64" #linux
+arch="arm_v7" #pi
 
 
 
