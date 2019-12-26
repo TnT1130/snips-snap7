@@ -126,7 +126,7 @@ def getTemperature(hermes, intent_message):
   if tempType.upper() == "Feuchtigkeit".upper():
     hermes.publish_end_session(intent_message.session_id, "Die {} im {} beträgt {} Prozent.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
   else:
-    hermes.publish_end_session(intent_message.session_id, "Die {} Temperatur im {} beträgt {} Grad.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
+    hermes.publish_end_session(intent_message.session_id, "Die {} Temperatur {} beträgt {} Grad.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
 
 @catchErrors
 def setRollerBlinds(hermes, intent_message):
@@ -139,6 +139,8 @@ def setRollerBlinds(hermes, intent_message):
   elif MovementDirection.upper() == "Auf".upper():
     shutter.open(ObjectLocation, WindowType)
     hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geöffnet.".format(ObjectLocation))
+  elif MovementDirection.upper() == "Stop".upper():
+    hermes.publish_end_session(intent_message.session_id, "Stop wird noch nicht unterstützt!")
   else:
     hermes.publish_end_session(intent_message.session_id, "Zefix, steh doch selbst auf!")
 
