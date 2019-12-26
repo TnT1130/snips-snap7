@@ -35,14 +35,14 @@ if [[ ! -s /usr/lib/libsnap7.so ]]; then
   ldconfig /usr/lib/libsnap7.so
   #cleanup
   cd ../../../
-  rm -r $version/
-  rm $version.7z
-  if [[ $p7zipExists == "" ]]; then
-    if [[ $(command -v apt) != "" ]]; then
-      apt autoremove -y p7zip-full
-    elif [[  $(command -v pacman) != "" ]]; then
-      pacman --noconfirm -Rs p7zip
-    fi
-  fi
+  #rm -r $version/
+  #rm $version.7z
+  #if [[ $p7zipExists == "" ]]; then
+  #  if [[ $(command -v apt) != "" ]]; then
+  #    apt autoremove -y p7zip-full
+  #  elif [[  $(command -v pacman) != "" ]]; then
+  #    pacman --noconfirm -Rs p7zip
+  #  fi
+  #fi
 fi
 exit 0
