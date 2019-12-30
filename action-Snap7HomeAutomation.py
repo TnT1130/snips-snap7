@@ -176,7 +176,7 @@ def setObject(hermes, intent_message):
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", intent_message.site_id if intent_message.site_id != "default" else "An")
   if MovementDirection.upper() == "An".upper():
     lights.turnOn(ObjectLocation, ObjectType)
-    hermes.publish_end_session(intent_message.session_id, "Wird angeschalten!")
+    hermes.publish_end_session(intent_message.session_id, "Wird eingeschalten!")
   elif MovementDirection.upper() == "Aus".upper():
     lights.turnOff(ObjectLocation, ObjectType)
     hermes.publish_end_session(intent_message.session_id, "Wird ausgeschalten!")
