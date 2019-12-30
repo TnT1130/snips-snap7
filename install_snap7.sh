@@ -25,8 +25,8 @@ if [[ ! -s /usr/lib/libsnap7.so ]]; then
     fi
   fi
   wget https://netcologne.dl.sourceforge.net/project/snap7/1.4.2/$version.7z
-  p7zip -d $version.7z
-  #7z x $version.7z
+  #p7zip -d $version.7z
+  7z x $version.7z
   #build libsnpa7
   cd $version/build/unix
   make -f "$arch"_linux.mk
