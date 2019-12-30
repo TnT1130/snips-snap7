@@ -24,12 +24,12 @@ if [[ ! -s /usr/lib/libsnap7.so ]]; then
       exit 1
     fi
   fi
-  wget https://netcologne.dl.sourceforge.net/project/snap7/1.4.2/$version.7z
+  #wget https://netcologne.dl.sourceforge.net/project/snap7/1.4.2/$version.7z
   #p7zip -d $version.7z
-  7z x $version.7z
+  #7z x $version.7z
   #build libsnpa7
-  cd $version/build/unix
-  make -f "$arch"_linux.mk
+  #cd $version/build/unix
+  #make -f "$arch"_linux.mk
   #install
   cp ../bin/$arch-linux/libsnap7.so /usr/lib
   ldconfig /usr/lib/libsnap7.so
