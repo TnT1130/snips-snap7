@@ -125,12 +125,12 @@ def getTemperature(hermes, intent_message):
   tempType = getSlotValue(intent_message.slots, "tempType", "Ist")
   tmp = temp.getStatus(ObjectLocation, tempType)
   if tmp == 0.0:
-    hermes.publish_end_session(intent_message.session_id, "Die {} im {} kann nicht ermittelt werden.".format(tempType, ObjectLocation))
+    hermes.publish_end_session(intent_message.session_id, "{} im {} kann nicht ermittelt werden.".format(tempType, ObjectLocation))
   else:
     if tempType.upper() == "Feuchtigkeit".upper():
-      hermes.publish_end_session(intent_message.session_id, "Die {} im {} beträgt {} Prozent.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
+      hermes.publish_end_session(intent_message.session_id, "{} im {} beträgt {} Prozent.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
     else:
-      hermes.publish_end_session(intent_message.session_id, "Die {} Temperatur {} beträgt {} Grad.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
+      hermes.publish_end_session(intent_message.session_id, "{} Temperatur {} beträgt {} Grad.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
 
 @catchErrors
 def setRollerBlinds(hermes, intent_message):
