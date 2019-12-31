@@ -29,7 +29,7 @@ if [[ ! -s /usr/lib/libsnap7.so ]]; then
   7z x $version.7z
   #build libsnpa7
   cd $version/build/unix
-  make -f "$arch"_linux.mk
+  sudo make -f "$arch"_linux.mk -all
   #install
   cp ../bin/$arch-linux/libsnap7.so /usr/lib
   ldconfig /usr/lib/libsnap7.so
@@ -37,12 +37,12 @@ if [[ ! -s /usr/lib/libsnap7.so ]]; then
   cd ../../../
   #rm -r $version/
   rm $version.7z
-  #if [[ $p7zipExists == "" ]]; then
-  #  if [[ $(command -v apt) != "" ]]; then
-  #    apt autoremove -y p7zip-full
-  #  elif [[  $(command -v pacman) != "" ]]; then
-  #    pacman --noconfirm -Rs p7zip
-  #  fi
-  #fi
+  if [[ $p7zipExists == "" ]]; then
+    if [[ $(command -v apt) != "" ]]; then
+      apt autoremove -y p7zip-full
+    elif [[  $(command -v pacman) != "" ]]; then
+      pacman --noconfirm -Rs p7zip
+    fi
+  fi
 fi
 exit 0
