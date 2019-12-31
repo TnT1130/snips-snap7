@@ -125,7 +125,7 @@ def getTemperature(hermes, intent_message):
   tempType = getSlotValue(intent_message.slots, "tempType", "Ist")
   tmp = temp.getStatus(ObjectLocation, tempType)
   if tmp == 0.0:
-    hermes.publish_end_session(intent_message.session_id, "Die {} im {} kann nicht ermittelt werden.".format(tempType, ObjectLocation)
+    hermes.publish_end_session(intent_message.session_id, "Die {} im {} kann nicht ermittelt werden.".format(tempType, ObjectLocation))
   else:
     if tempType.upper() == "Feuchtigkeit".upper():
       hermes.publish_end_session(intent_message.session_id, "Die {} im {} beträgt {} Prozent.".format(tempType, ObjectLocation, temp.getStatus(ObjectLocation, tempType) / 100.0))
