@@ -35,7 +35,7 @@ class Snap7Light():
     if self.getStatus(room, pos) == 0:
       lg.info("room: {}, type: {}, Action: TurnOn".format(room, pos))
       self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
-    elif pos.upper() = "Decke".upper():
+    elif pos.upper() == "Decke".upper():
       if room.upper() == "Wohnzimmer".upper() or room.upper() == "Küche".upper():
         lg.info("room: {}, type: {}, Action: TurnOn".format(room, pos))
         self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
@@ -44,7 +44,7 @@ class Snap7Light():
     if self.getStatus(room, pos) == 1:
       lg.info("room: {}, type: {}, Action: TurnOff".format(room, pos))
       self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
-    elif pos.upper() = "Decke".upper():
+    elif pos.upper() == "Decke".upper():
       if room.upper() == "Wohnzimmer".upper() or room.upper() == "Küche".upper():
         lg.info("room: {}, type: {}, Action: TurnOn".format(room, pos))
         self.__client.setBit(self.__writeDB, self.__getWriteOffset(room, pos))
