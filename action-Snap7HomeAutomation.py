@@ -175,11 +175,15 @@ def setObject(hermes, intent_message):
   ObjectType = getSlotValue(intent_message.slots, "ObjectType", intent_message.site_id if intent_message.site_id != "default" else "Decke")
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", intent_message.site_id if intent_message.site_id != "default" else "An")
   if MovementDirection.upper() == "An".upper():
-    lights.turnOn(ObjectLocation, ObjectType)
-    hermes.publish_end_session(intent_message.session_id, "Wird eingeschalten!")
+    if lights.turnOn(ObjectLocation, ObjectType) == 1:
+      hermes.publish_end_session(intent_message.session_id, "Wird eingeschalten!")
+    else:
+      hermes.publish_end_session(intent_message.session_id, "Ist bereits an!")
   elif MovementDirection.upper() == "Aus".upper():
-    lights.turnOff(ObjectLocation, ObjectType)
-    hermes.publish_end_session(intent_message.session_id, "Wird ausgeschalten!")
+    if lights.turnOff(ObjectLocation, ObjectType) == 1:
+      hermes.publish_end_session(intent_message.session_id, "Wird ausgeschalten!")
+    else:
+      hermes.publish_end_session(intent_message.session_id, "Ist bereits aus!")
   else:
     hermes.publish_end_session(intent_message.session_id, "Was soll ich machen?")
 
