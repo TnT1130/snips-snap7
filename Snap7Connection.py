@@ -21,6 +21,7 @@ class Snap7Connection():
       tmpret = (tmpdata & 1<<pos) >> pos
       lg.debug("Read DB: {}, Byte: {}, Bit: {}, Data: {}".format(db, offset, pos, tmpret))
       return tmpret
+      self.closeConnection()
 
     def setBit(self, db, index):
       self.connect()
@@ -30,6 +31,7 @@ class Snap7Connection():
       tmpData = (self.__client.db_read(db, offset, 1)[0] | mask)
       lg.debug("Write DB: {}, Byte: {}, Data: {}".format(db, offset, bin(tmpData)))
       self.__client.db_write(db, offset, bytearray([tmpData]))
+      self.closeConnection()
 
     def clearBit(self, db, index):
       self.connect()
@@ -39,6 +41,7 @@ class Snap7Connection():
       tmpData = (self.__client.db_read(db, offset, 1)[0] & mask)
       lg.debug("Write DB: {}, Byte: {}, Data: {}".format(db, offset, bin(tmpData)))
       self.__client.db_write(db, offset, bytearray([tmpData]))
+      self.closeConnection()
 
     def readInt(self, db, index):
       self.connect()
@@ -48,6 +51,7 @@ class Snap7Connection():
       lg.debug("readInt DB: {}, offset: {}, BinData: {}, Int: {}".format(db, offset, "b'" + (bin(tmp[0])[2:]).rjust(8, '0') \
                                                                          + ' ' +  (bin(tmp[1])[2:]).rjust(8, '0') + "'", tmpInt))
       return tmpInt
+      self.closeConnection()
 
     def writeInt(self, db, index, data):
       self.connect()
@@ -56,6 +60,7 @@ class Snap7Connection():
       lg.debug("writeInt DB: {}, offset: {}, BinData: {}, Int: {}".format(db, offset, "b'" + (bin(tmpdata[0])[2:]).rjust(8, '0') \
                                                                          + ' ' +  (bin(tmpdata[1])[2:]).rjust(8, '0') + "'", data))
       self.__client.db_write(db, offset, tmpdata)
+      self.closeConnection()
 
     def connect(self):  
       if not self.__client:
