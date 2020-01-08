@@ -48,4 +48,4 @@ class Snap7Shutter():
 
   def setPosition(self, room, pos, shutterPos):
     lg.info("room: {}, type: {}, Action: SetPos {}".format(room, pos, shutterPos))
-    self.__client.writeInt(self.__writeDB, self.__getWritePosOffset(room, pos), shutterPos)
+    self.__client.writeInt(self.__writeDB, self.__getWritePosOffset(room, pos), int(shutterPos))
