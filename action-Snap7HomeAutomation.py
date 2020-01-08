@@ -137,16 +137,20 @@ def setRollerBlinds(hermes, intent_message):
   ObjectLocation = getSlotValue(intent_message.slots, "ObjectLocation", intent_message.site_id if intent_message.site_id != "default" else "wohnzimmer")
   WindowType = getSlotValue(intent_message.slots, "WindowType", "alle")
   MovementDirection = getSlotValue(intent_message.slots, "MovementDirection", "")
-  if MovementDirection.upper() == "Ab".upper():
-    shutter.close(ObjectLocation, WindowType)
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geschlossen.".format(ObjectLocation))
-  elif MovementDirection.upper() == "Auf".upper():
-    shutter.open(ObjectLocation, WindowType)
-    hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geöffnet.".format(ObjectLocation))
-  elif MovementDirection.upper() == "Stop".upper():
-    hermes.publish_end_session(intent_message.session_id, "Stop wird noch nicht unterstützt!")
+  ShutterPos = getSlotValue(intent_message.slots, "ShutterPos", intent_message.site_id if intent_message.site_id != "default" else "-1")
+  if ShutterPos == "-1" or ShutterPos < 0 or ShutterPos > 100:
+    if MovementDirection.upper() == "Ab".upper():
+      shutter.close(ObjectLocation, WindowType)
+      hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geschlossen.".format(ObjectLocation))
+    elif MovementDirection.upper() == "Auf".upper():
+      shutter.open(ObjectLocation, WindowType)
+      hermes.publish_end_session(intent_message.session_id, "Rollo im {} wird geöffnet.".format(ObjectLocation))
+    elif MovementDirection.upper() == "Stop".upper():
+      hermes.publish_end_session(intent_message.session_id, "Stop wird noch nicht unterstützt!")
+    else:
+      hermes.publish_end_session(intent_message.session_id, "Zefix, steh doch selbst auf!")
   else:
-    hermes.publish_end_session(intent_message.session_id, "Zefix, steh doch selbst auf!")
+    hermes.publish_end_session(intent_message.session_id, "Fahre Rollo auf Position {}!".format(ShutterPos))
 
 @catchErrors
 def getRollerBlinds(hermes, intent_message):
