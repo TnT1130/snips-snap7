@@ -150,6 +150,7 @@ def setRollerBlinds(hermes, intent_message):
     else:
       hermes.publish_end_session(intent_message.session_id, "Zefix, steh doch selbst auf!")
   else:
+    shutter.setPosition(ObjectLocation, WindowType, ShutterPos)
     hermes.publish_end_session(intent_message.session_id, "Fahre Rollo auf Position {}!".format(ShutterPos))
 
 @catchErrors
