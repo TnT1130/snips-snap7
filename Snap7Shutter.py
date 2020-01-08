@@ -25,7 +25,14 @@ class Snap7Shutter():
     offset += self.__shutterPos.index(pos.lower()) * 8 * 4
     lg.debug("room: {}, type: {}, WriteOffset: {}".format(room, pos, offset))
     return offset
-
+  
+  def __getWritePosOffset(self, room, pos):
+    offset = self.__rooms.index(room.lower()) * self.__writeOffset
+    offset += self.__shutterPos.index(pos.lower()) * 8 * 4
+    offset += 16
+    lg.debug("room: {}, type: {}, WritePosOffset: {}".format(room, pos, offset))
+    return offset
+  
   def getStatus(self, room, pos):
     tmp = self.__client.readInt(self.__readDB, self.__getReadOffset(room, pos))
     lg.info("room: {}, type: {}, Status: {}".format(room, pos, tmp))
@@ -41,4 +48,4 @@ class Snap7Shutter():
 
   def setPosition(self, room, pos, shutterPos):
     lg.info("room: {}, type: {}, Action: SetPos {}".format(room, pos, shutterPos))
-    self.__client.writeInt(self.__writeDB, self.__getWriteOffset(room, pos) + 16, shutterPos)
+    self.__client.writeInt(self.__writeDB, self.__getWritePosOffset(room, pos), shutterPos)
